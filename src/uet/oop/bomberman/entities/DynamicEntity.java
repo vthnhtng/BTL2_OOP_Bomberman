@@ -27,6 +27,14 @@ public abstract class DynamicEntity extends Entity {
         return isDead;
     }
 
+    public int getLive() {
+        return live;
+    }
+
+    public void setLive(int live) {
+        this.live = live;
+    }
+
     public void setDead(boolean dead) {
         isDead = dead;
     }
@@ -62,7 +70,7 @@ public abstract class DynamicEntity extends Entity {
     public abstract void dead();
 
     //di chuyển qua trái
-    public boolean canMove_Left(int x, int y) {
+    public boolean canMove_Left(int x, int y, int[][] level1) {
         //lấy pixel 1 ô
         int scaleSize = Sprite.SCALED_SIZE;
         // lấy index vị trí hiện tại theo j , i
@@ -77,13 +85,13 @@ public abstract class DynamicEntity extends Entity {
         int y3 = (y + scaleSize) / scaleSize;  // 4
 
         if (y % scaleSize == 0) {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9));
 
         } else {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9) ||
-                    (BombermanGame.level1[y3][x3] == 1 || BombermanGame.level1[y3][x3] == 2 || BombermanGame.level1[y3][x3] == 4 || BombermanGame.level1[y3][x3] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9) ||
+                    (level1[y3][x3] == 1 || level1[y3][x3] == 2 || level1[y3][x3] == 4 || level1[y3][x3] == 9));
         }
     }
 
@@ -96,7 +104,7 @@ public abstract class DynamicEntity extends Entity {
     }
 
     //di chuyển qua phải
-    public boolean canMove_Right(int x, int y) {
+    public boolean canMove_Right(int x, int y, int[][] level1) {
         //lấy pixel 1 ô
         int scaleSize = Sprite.SCALED_SIZE;
         // lấy index vị trí hiện tại theo j ,
@@ -111,13 +119,13 @@ public abstract class DynamicEntity extends Entity {
         int y3 = (y + scaleSize) / scaleSize;
 
         if (y % scaleSize == 0) {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9));
 
         } else {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9) ||
-                    (BombermanGame.level1[y3][x3] == 1 || BombermanGame.level1[y3][x3] == 2 || BombermanGame.level1[y3][x3] == 4 || BombermanGame.level1[y3][x3] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 ||level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9) ||
+                    (level1[y3][x3] == 1 ||level1[y3][x3] == 2 || level1[y3][x3] == 4 || level1[y3][x3] == 9));
         }
     }
 
@@ -130,7 +138,7 @@ public abstract class DynamicEntity extends Entity {
     }
 
     //di chuyển lên trên
-    public boolean canMove_Up(int x, int y) {
+    public boolean canMove_Up(int x, int y, int[][] level1) {
         //lấy pixel 1 ô
         int scaleSize = Sprite.SCALED_SIZE;
         // lấy index vị trí hiện tại theo j , i
@@ -145,23 +153,14 @@ public abstract class DynamicEntity extends Entity {
         int y2 = (y - scaleSize) / scaleSize;
 
         if (x % scaleSize == 0) {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9));
 
         } else {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9) ||
-                    (BombermanGame.level1[y3][x3] == 1 || BombermanGame.level1[y3][x3] == 2 || BombermanGame.level1[y3][x3] == 4 || BombermanGame.level1[y3][x3] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9) ||
+                    (level1[y3][x3] == 1 || level1[y3][x3] == 2 || level1[y3][x3] == 4 || level1[y3][x3] == 9));
         }
-    }
-    private boolean isReborn;
-
-    public boolean isReborn() {
-        return isReborn;
-    }
-
-    public void setReborn(boolean reborn) {
-        isReborn = reborn;
     }
 
     public boolean can_Move_Up_2(int x, int y) {
@@ -172,11 +171,8 @@ public abstract class DynamicEntity extends Entity {
         return ((y - y2) <= 36 && (y - y2) > 0);
     }
 
-    @Override
-    public abstract void update();
-    public abstract void reborn();
     //di chuyển xuống dưới
-    public boolean canMove_Down(int x, int y) {
+    public boolean canMove_Down(int x, int y, int[][] level1) {
         //lấy pixel 1 ô
         int scaleSize = Sprite.SCALED_SIZE;
         // lấy index vị trí hiện tại theo j , i
@@ -191,16 +187,30 @@ public abstract class DynamicEntity extends Entity {
         int y3 = (y + scaleSize) / scaleSize;
 
         if (x % scaleSize == 0) {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9));
 
         } else {
-            return !((BombermanGame.level1[y2][x2] == 1 || BombermanGame.level1[y2][x2] == 2 || BombermanGame.level1[y2][x2] == 4 || BombermanGame.level1[y2][x2] == 9) ||
-                    (BombermanGame.level1[y1][x1] == 1 || BombermanGame.level1[y1][x1] == 2 || BombermanGame.level1[y1][x1] == 4 || BombermanGame.level1[y1][x1] == 9) ||
-                    (BombermanGame.level1[y3][x3] == 1 || BombermanGame.level1[y3][x3] == 2 || BombermanGame.level1[y3][x3] == 4 || BombermanGame.level1[y3][x3] == 9));
+            return !((level1[y2][x2] == 1 || level1[y2][x2] == 2 || level1[y2][x2] == 4 || level1[y2][x2] == 9) ||
+                    (level1[y1][x1] == 1 || level1[y1][x1] == 2 || level1[y1][x1] == 4 || level1[y1][x1] == 9) ||
+                    (level1[y3][x3] == 1 || level1[y3][x3] == 2 || level1[y3][x3] == 4 || level1[y3][x3] == 9));
         }
     }
 
+    @Override
+    public abstract void update();
+
+    public abstract void reborn();
+
+    private boolean isReborn;
+
+    public boolean isReborn() {
+        return isReborn;
+    }
+
+    public void setReborn(boolean reborn) {
+        isReborn = reborn;
+    }
 
     public boolean can_Move_Down_2(int x, int y) {
         int scaleSize = Sprite.SCALED_SIZE;

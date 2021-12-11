@@ -13,7 +13,6 @@ public class BombLevelsUp extends Item {
     @Override
     public void buff() {
         BombermanGame.bombLevels++;
-        BombermanGame.itemsList.remove(this);
     }
 
     @Override
@@ -22,6 +21,7 @@ public class BombLevelsUp extends Item {
             if (BombermanGame.bombLevels < 10) {
                 buff();
             }
+            BombermanGame.itemsList.remove(this);
         }
     }
 }

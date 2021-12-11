@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Map.Levels;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Bomber extends DynamicEntity {
     public Bomber(int x, int y, Image img) {
         super(x, y, img);
         speed = 2;
+        interval = 3;
 
     }
 
@@ -25,20 +27,20 @@ public class Bomber extends DynamicEntity {
     public void update() {
         if (!isDead()) {
             this.moving = false;
-            if (moveDOWN && (canMove_Down(getX(), getY()) || can_Move_Down_2(getX(), getY()))) {
+            if (moveDOWN && (canMove_Down(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Down_2(getX(), getY()))) {
                 this.moveDOWN();
                 this.moving = true;
             }
-            if (moveLEFT && (canMove_Left(getX(), getY()) || can_Move_Left_2(getX(), getY()))) {
+            if (moveLEFT && (canMove_Left(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Left_2(getX(), getY()))) {
                 this.moveLEFT();
                 this.moving = true;
             }
-            if (moveUP && (canMove_Up(getX(), getY()) || can_Move_Up_2(getX(), getY()))) {
+            if (moveUP && (canMove_Up(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Up_2(getX(), getY()))) {
 
                 this.moveUP();
                 this.moving = true;
             }
-            if (moveRIGHT && (canMove_Right(getX(), getY()) || can_Move_Right_2(getX(), getY()))) {
+            if (moveRIGHT && (canMove_Right(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Right_2(getX(), getY()))) {
                 this.moveRIGHT();
                 this.moving = true;
             }

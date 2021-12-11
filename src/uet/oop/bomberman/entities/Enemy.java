@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Map.Levels;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
@@ -17,13 +18,19 @@ public class Enemy extends DynamicEntity {
 
     }
 
-    private int count = 0;
+    public void bombsCheck() {
+
+    }
+
+    public void randomMoving() {
+
+    }
 
     @Override
     public void update() {
-        if(!isDead) {
+        if (!isDead) {
             if (moveDOWN) {
-                if (canMove_Down(getX(), getY()) || can_Move_Down_2(getX(), getY())) {
+                if (canMove_Down(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Down_2(getX(), getY())) {
                     moveDOWN();
                 } else {
                     moveDOWN = false;
@@ -47,7 +54,7 @@ public class Enemy extends DynamicEntity {
                 }
             }
             if (moveUP) {
-                if (canMove_Up(getX(), getY()) || can_Move_Up_2(getX(), getY())) {
+                if (canMove_Up(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Up_2(getX(), getY())) {
                     moveUP();
                 } else {
                     moveUP = false;
@@ -71,8 +78,9 @@ public class Enemy extends DynamicEntity {
                 }
             }
             if (moveLEFT) {
-                if (canMove_Left(getX(), getY()) || can_Move_Left_2(getX(), getY())) {
+                if (canMove_Left(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Left_2(getX(), getY())) {
                     moveLEFT();
+                    this.setImg(Sprite.balloom_left1.getFxImage());
                 } else {
                     moveLEFT = false;
                     switch (new Random().nextInt(3)) {
@@ -95,8 +103,9 @@ public class Enemy extends DynamicEntity {
                 }
             }
             if (moveRIGHT) {
-                if (canMove_Right(getX(), getY()) || can_Move_Right_2(getX(), getY())) {
+                if (canMove_Right(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Right_2(getX(), getY())) {
                     moveRIGHT();
+                    this.setImg(Sprite.balloom_right1.getFxImage());
                 } else {
                     moveRIGHT = false;
                     switch (new Random().nextInt(3)) {
@@ -125,6 +134,12 @@ public class Enemy extends DynamicEntity {
                     }
                 }
             }
+        } else {
+            this.setImg(Sprite.balloom_dead.getFxImage());
+            frame++;
+            if (frame > interval_dead) {
+                BombermanGame.movingEntities.remove(this);
+            }
         }
     }
 
@@ -140,20 +155,7 @@ public class Enemy extends DynamicEntity {
         if (live_enemy == 0) {
             isDead = true;
         }
-        frame_dead++;
-        if (frame_dead >= interval_dead) {
-            index_animation_dead++;
-            frame_dead = 0;
-            if (index_animation_dead >= 3) {
-                index_animation_dead = 0;
-            }
-        }
-        switch (index_animation_dead) {
-            case 0:
-                this.setImg(Sprite.balloom_dead.getFxImage());
-                break;
 
-        }
     }
 
 }

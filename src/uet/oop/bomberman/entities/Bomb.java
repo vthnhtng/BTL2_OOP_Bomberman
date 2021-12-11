@@ -2,8 +2,8 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Item.Item;
-import uet.oop.bomberman.entities.Item.x2Spd;
+import uet.oop.bomberman.Map.Levels;
+import uet.oop.bomberman.entities.Item.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends StillEntity {
@@ -37,7 +37,7 @@ public class Bomb extends StillEntity {
     public void explosion() {
         frameBomb++;
         if ((Math.abs(BombermanGame.bomberman.getX() - getX()) > 28) || (Math.abs(BombermanGame.bomberman.getY() - getY())) > 28) {
-            BombermanGame.level1[getY() / 32][getX() / 32] = 9;
+            Levels.Maps.get(BombermanGame.levels)[getY() / 32][getX() / 32] = 9;
         }
 
         if (frameBomb >= intervalBomb) {
@@ -60,15 +60,15 @@ public class Bomb extends StillEntity {
                 break;
         }
 
-        if (countToExplode >= intervalToExplode) {
+        if (countToExplode > intervalToExplode) {
             exploded = true;
             countToExplode = 0;
             BombermanGame.countBomb--;
         }
 
         if (exploded) {
-            frameExplosion++;
-            if (frameExplosion >= intervalExplode) {
+            frameExplosion = frameExplosion + 1;
+            if (frameExplosion > intervalExplode) {
                 frameExplosion = 0;
                 indexExplosionAnimation++;
                 if (indexExplosionAnimation > 3) {
@@ -79,10 +79,10 @@ public class Bomb extends StillEntity {
                 case 0:
                     this.setImg(Sprite.bomb_exploded.getFxImage());
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 1 || BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded.getFxImage(), getX() + i * 32, getY());
                             break;
                         }
@@ -107,10 +107,10 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 1 || BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded.getFxImage(), getX() - i * 32, getY());
                             break;
                         }
@@ -134,10 +134,10 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 1 || BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded.getFxImage(), getX(), getY() - i * 32);
                             break;
                         }
@@ -161,10 +161,10 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 1 || BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded.getFxImage(), getX(), getY() + i * 32);
                             break;
                         }
@@ -193,10 +193,10 @@ public class Bomb extends StillEntity {
                 case 1:
                     this.setImg(Sprite.bomb_exploded1.getFxImage());
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 1 || BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded1.getFxImage(), getX() + i * 32, getY());
                             break;
                         }
@@ -220,10 +220,10 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 1 || BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded1.getFxImage(), getX() - i * 32, getY());
                             break;
                         }
@@ -247,10 +247,10 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 1 || BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded1.getFxImage(), getX(), getY() - i * 32);
                             break;
                         }
@@ -274,10 +274,10 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 1 || BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
                             BombermanGame.gc.drawImage(Sprite.brick_exploded1.getFxImage(), getX(), getY() + i * 32);
                             break;
                         }
@@ -304,26 +304,26 @@ public class Bomb extends StillEntity {
                 case 2:
                     this.setImg(Sprite.bomb_exploded1.getFxImage());
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 1 || BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 1 ||Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
-                            BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] = 0;
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
+                            Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() + i * 32) / 32] = 0;
                             if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 1) {
-                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_speed.getFxImage());
-                                BombermanGame.itemsList.add(x2SpdBuff);
+                                Item Buff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_speed.getFxImage());
+                                BombermanGame.itemsList.add(Buff);
                             } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 2) {
-                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_bombs.getFxImage());
-                                BombermanGame.itemsList.add(x2SpdBuff);
+                                Item Buff = new BombLevelsUp((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_bombs.getFxImage());
+                                BombermanGame.itemsList.add(Buff);
                             } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 3) {
-                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_flames.getFxImage());
-                                BombermanGame.itemsList.add(x2SpdBuff);
+                                Item Buff = new FireLevelsUp((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_flames.getFxImage());
+                                BombermanGame.itemsList.add(Buff);
                             } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 4) {
-                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_flamepass.getFxImage());
-                                BombermanGame.itemsList.add(x2SpdBuff);
+                                Item Buff = new SpdDecrease((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_flamepass.getFxImage());
+                                BombermanGame.itemsList.add(Buff);
                             } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 5) {
-                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_wallpass.getFxImage());
-                                BombermanGame.itemsList.add(x2SpdBuff);
+                                Item Buff = new Addlive((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_wallpass.getFxImage());
+                                BombermanGame.itemsList.add(Buff);
                             }
                             break;
                         }
@@ -334,7 +334,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman.setDead(true);
                             }
                         }
-                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) <= 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) <= 4) {
+                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) < 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) < 4) {
                             if (!BombermanGame.bomberman.isInvisible()) {
                                 BombermanGame.bomberman.setImg(Sprite.player_dead3.getFxImage());
                                 BombermanGame.bomberman.setDead(true);
@@ -344,11 +344,9 @@ public class Bomb extends StillEntity {
                             if (e instanceof Enemy) {
                                 if (Math.abs((getX() + i * 32) - e.getX()) < 29 && Math.abs((getY()) - e.getY()) < 29) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                                 if ((Math.abs(e.getX() - getX()) <= 2) && (Math.abs(e.getY()) - getY()) <= 2) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                             }
                         }
@@ -361,27 +359,27 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 1 || BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
-                            if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
-                                BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] = 0;
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
+                            if (Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
+                                Levels.Maps.get(BombermanGame.levels)[(getY()) / 32][(getX() - i * 32) / 32] = 0;
                                 if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 1) {
-                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_speed.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_speed.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 2) {
-                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_bombs.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new BombLevelsUp((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_bombs.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 3) {
-                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_flames.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new FireLevelsUp((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_flames.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 }  else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 4) {
-                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_flamepass.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new SpdDecrease((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_flamepass.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 5) {
-                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_wallpass.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new Addlive((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_wallpass.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 }
                                 break;
                             }
@@ -392,7 +390,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman.setDead(true);
                             }
                         }
-                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) <= 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) <= 4) {
+                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) <4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) < 4) {
                             if (!BombermanGame.bomberman.isInvisible()) {
                                 BombermanGame.bomberman.setImg(Sprite.player_dead3.getFxImage());
                                 BombermanGame.bomberman.setDead(true);
@@ -402,11 +400,9 @@ public class Bomb extends StillEntity {
                             if (e instanceof Enemy) {
                                 if (Math.abs((getX() - i * 32) - e.getX()) < 29 && Math.abs((getY()) - e.getY()) < 29) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                                 if ((Math.abs(e.getX() - getX()) <= 2) && (Math.abs(e.getY()) - getY()) <= 2) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                             }
                         }
@@ -418,27 +414,27 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 1 || BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 1 ||Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
-                            if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
-                                BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] = 0;
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
+                            if (Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
+                                Levels.Maps.get(BombermanGame.levels)[(getY() - i * 32) / 32][(getX()) / 32] = 0;
                                 if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 1) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_speed.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_speed.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 2) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_bombs.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new BombLevelsUp(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_bombs.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 3) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_flames.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new FireLevelsUp(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_flames.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 4) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_flamepass.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new SpdDecrease(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_flamepass.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 5) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_wallpass.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new Addlive(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_wallpass.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 }
                                 break;
                             }
@@ -449,7 +445,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman.setDead(true);
                             }
                         }
-                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) <= 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) <= 4) {
+                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) < 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) < 4) {
                             if (!BombermanGame.bomberman.isInvisible()) {
                                 BombermanGame.bomberman.setImg(Sprite.player_dead3.getFxImage());
                                 BombermanGame.bomberman.setDead(true);
@@ -459,11 +455,9 @@ public class Bomb extends StillEntity {
                             if (e instanceof Enemy) {
                                 if (Math.abs((getX()) - e.getX()) <= 29 && Math.abs((getY() - i * 32) - e.getY()) <= 29) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                                 if ((Math.abs(e.getX() - getX()) <= 2) && (Math.abs(e.getY()) - getY()) <= 2) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                             }
                         }
@@ -475,27 +469,27 @@ public class Bomb extends StillEntity {
                     }
 
                     for (int i = 1; i <= BombermanGame.fireLevels; i++) {
-                        if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 1 || BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 2) {
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 1 || Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 2) {
                             break;
                         }
-                        if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
-                            if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
-                                BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] = 0;
+                        if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
+                            if (Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
+                                Levels.Maps.get(BombermanGame.levels)[(getY() + i * 32) / 32][(getX()) / 32] = 0;
                                 if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 1) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_speed.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_speed.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 2) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_bombs.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new BombLevelsUp(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_bombs.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 3) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_flames.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new FireLevelsUp(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_flames.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 4) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_flamepass.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new SpdDecrease(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_flamepass.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 5) {
-                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_wallpass.getFxImage());
-                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                    Item Buff = new Addlive(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_wallpass.getFxImage());
+                                    BombermanGame.itemsList.add(Buff);
                                 }
                                 break;
                             }
@@ -506,7 +500,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman.setDead(true);
                             }
                         }
-                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) <= 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) <= 4) {
+                        if ((Math.abs(BombermanGame.bomberman.getX() - getX()) < 4) && (Math.abs(BombermanGame.bomberman.getY()) - getY()) < 4) {
                             if (!BombermanGame.bomberman.isInvisible()) {
                                 BombermanGame.bomberman.setImg(Sprite.player_dead3.getFxImage());
                                 BombermanGame.bomberman.setDead(true);
@@ -516,11 +510,9 @@ public class Bomb extends StillEntity {
                             if (e instanceof Enemy) {
                                 if (Math.abs((getX()) - e.getX()) < 29 && Math.abs((getY() + i * 32) - e.getY()) < 29) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                                 if ((Math.abs(e.getX() - getX()) <= 2) && (Math.abs(e.getY()) - getY()) <= 2) {
                                     e.dead();
-                                    BombermanGame.movingEntities.remove(e);
                                 }
                             }
                         }
@@ -536,8 +528,8 @@ public class Bomb extends StillEntity {
                     }
                     exploded = false;
                     BombermanGame.bomberman.render(BombermanGame.gc);
-                    BombermanGame.level1[getY() / 32][getX() / 32] = 0;
-                    BombermanGame.updateStillObject();
+                    Levels.Maps.get(BombermanGame.levels)[getY() / 32][getX() / 32] = 0;
+                    Levels.updateStillObject(Levels.Maps.get(BombermanGame.levels));
                     set = false;
                     BombermanGame.bombs.remove(this);
                     break;

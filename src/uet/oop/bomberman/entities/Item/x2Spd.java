@@ -25,7 +25,7 @@ public class x2Spd extends Item {
     @Override
     public void update() {
         if (Math.abs(getX() - BombermanGame.bomberman.getX()) < 28 && Math.abs(getY() - BombermanGame.bomberman.getY()) < 28) {
-            if (BombermanGame.bomberman.getSpeed() <= 8) {
+            if (BombermanGame.bomberman.getSpeed() < 4) {
                 buff();
             }
         }
