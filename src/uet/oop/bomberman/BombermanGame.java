@@ -18,7 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.entities.Item.Item;
+import uet.oop.bomberman.entities.Item.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
@@ -35,8 +35,6 @@ import java.util.logging.Level;
 
 public class BombermanGame extends Application {
     public static boolean pause = false;
-    boolean running, moveUP, moveDOWN, moveLEFT, moveRIGHT;
-    boolean moving;
     public static boolean gameStart = false;
     public static final int WIDTH = 34;
     public static final int HEIGHT = 22;
@@ -49,16 +47,14 @@ public class BombermanGame extends Application {
     public static List<DynamicEntity> movingEntities = new ArrayList<>(); // lưu các entities động
     public static List<StillEntity> stillObjects = new ArrayList<>(); // lưu các entities tĩnh khi khởi tạo map
     public static List<Item> itemsList = new ArrayList<>();
-    //public static lis
 
     double x, y;
     public static int countBomb = 0;
-    public static int bombLevels = 5; // max 5
-    public static int fireLevels = 30; // max 5
+    public static int bombLevels = 1; // max 5
+    public static int fireLevels = 1; // max 5
 
     public static DynamicEntity bomberman = new Bomber(1, 5, Sprite.bomman_down.getFxImage());
     public static DynamicEntity bomberman1 = new Bomber(1, 2, Sprite.bomman2_down.getFxImage());
-    //public static DynamicEntity enemy = new Enemy(8, 6, Sprite.balloom_left3.getFxImage());
 
     public static int[][] level1 = new int[][]{ // nang cap lay tu file
             {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
@@ -88,19 +84,11 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         Group root = new Group();
-
-        // Tao root container
-        // Group root = new Group();
-        //  root.getChildren().add(canvas);
-        // Tao scene
-        //  root.getChildren().add(authorView);
         Menu.creatMenu(root);
         Scene scene = new Scene(root);
-        //  root.getChildren().add(statusGame);
 
         movingEntities.add(bomberman);
         //movingEntities.add(bomberman1);
@@ -167,6 +155,12 @@ public class BombermanGame extends Application {
                                     BombermanGame.bomberman.setInvisible(true);
                                 } else {
                                     BombermanGame.bomberman.setInvisible(false);
+                                }
+                                if (bombLevels < 10) {
+                                    bombLevels = 10;
+                                }
+                                if (fireLevels < 10) {
+                                    fireLevels = 10;
                                 }
                         }
 
@@ -269,20 +263,71 @@ public class BombermanGame extends Application {
         }
     }
 
-    public void Random_items(int[][] levels) {
+    public void Random_items(int[][] level) {
+//        Item bomb = new BombLevelsUp(5 ,5, Sprite.powerup_bombs.getFxImage());
+//        Item flame = new FireLevelsUp(7 ,7, Sprite.powerup_flames.getFxImage());
+//        Item spd = new x2Spd(11 ,11, Sprite.powerup_speed.getFxImage());
+//        Item eSpd = new x2SpdEnemy(8,8, Sprite.powerup_flamepass.getFxImage());
+//        Item bSpd = new SpdDecrease(9 ,9, Sprite.powerup_wallpass.getFxImage());
+//        itemsList.add(bomb);
+//        itemsList.add(flame);
+//        itemsList.add(spd);
+//        itemsList.add(eSpd);
+//        itemsList.add(bSpd);
         for (int i = 0; i < rows; i ++) {
-            for (int j = 0; i < columns; j ++) {
-                if (levels[j][i] == 4) {
-                    if (new Random().nextInt(10) > 3) {
-                        switch (new Random().nextInt(5)) {
-                            case 1: items[j][i] = 1; break;
-                            case 2: items[j][i] = 2; break;
-                            case 3: items[j][i] = 3; break;
-                            case 4: items[j][i] = 4; break;
-                            case 5: items[j][i] = 5; break;
-                        }
-                    }
-                }
+            for (int j = 0; j < columns; j ++) {
+                items[j][i] = 0;
+            }
+        }
+        int count = 5;
+        int a;
+        int b;
+        while(true){
+            a = (int)Math.floor(Math.random()*((columns-2)-1)+1)+1;
+            b = (int)Math.floor(Math.random()*((rows-2)-1+1)+1);
+            if(level1[b][a] == 4 && items[b][a] == 0){
+                items[b][a] = 5;
+                break;
+            }
+        }
+        while(true){
+            a = (int)Math.floor(Math.random()*((columns-2)-1)+1)+1;
+            b = (int)Math.floor(Math.random()*((rows-2)-1+1)+1);
+            if(level1[b][a] == 4 && items[b][a] == 0){
+                items[b][a] = 4;
+                break;
+            }
+        }
+        while(true){
+            a = (int)Math.floor(Math.random()*((columns-2)-1)+1)+1;
+            b = (int)Math.floor(Math.random()*((rows-2)-1+1)+1);
+            if(level1[b][a] == 4 && items[b][a] == 0){
+                items[b][a] = 3;
+                break;
+            }
+        }
+        while(true){
+            a = (int)Math.floor(Math.random()*((columns-2)-1)+1)+1;
+            b = (int)Math.floor(Math.random()*((rows-2)-1+1)+1);
+            if(level1[b][a] == 4 && items[b][a] == 0){
+                items[b][a] = 3;
+                break;
+            }
+        }
+        while(true){
+            a = (int)Math.floor(Math.random()*((columns-2)-1)+1)+1;
+            b = (int)Math.floor(Math.random()*((rows-2)-1+1)+1);
+            if(level1[b][a] == 4 && items[b][a] == 0){
+                items[b][a] = 2;
+                break;
+            }
+        }
+        while(true){
+            a = (int)Math.floor(Math.random()*((columns-2)-1)+1)+1;
+            b = (int)Math.floor(Math.random()*((rows-2)-1+1)+1);
+            if(level1[b][a] == 4 && items[b][a] == 0){
+                items[b][a] = 1;
+                break;
             }
         }
     }
@@ -303,9 +348,7 @@ public class BombermanGame extends Application {
                     } else if (level1[j][i] == 3) {
                         object = new Wall(i, j, Sprite.Wall_Wood.getFxImage());
                     } else if (level1[j][i] == 4) {
-                        object = new Grass(i, j, Sprite.Brick_1.getFxImage());
-                    } else if (level1[j][j] == 7) {
-                        object = new Grass(i, j, Sprite.Brick_2.getFxImage());
+                        object = new Brick(i, j, Sprite.Brick_1.getFxImage());
                     } else {
                         object = new Grass(i, j, Sprite.Grass_default.getFxImage());
                     }

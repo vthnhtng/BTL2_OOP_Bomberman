@@ -17,7 +17,6 @@ public class x2Spd extends Item {
             BombermanGame.bomberman.setSpeed(BombermanGame.bomberman.getSpeed() * 2);
             BombermanGame.itemsList.remove(this);
         } else if (BombermanGame.bomberman.getX() % 8 == 0 && BombermanGame.bomberman.getY() % 8 == 0 && BombermanGame.bomberman.getSpeed() == 4) {
-
             BombermanGame.bomberman.setSpeed(BombermanGame.bomberman.getSpeed() * 2);
             BombermanGame.itemsList.remove(this);
         }
@@ -25,11 +24,9 @@ public class x2Spd extends Item {
 
     @Override
     public void update() {
-        System.out.println(BombermanGame.bomberman.getSpeed());
         if (Math.abs(getX() - BombermanGame.bomberman.getX()) < 28 && Math.abs(getY() - BombermanGame.bomberman.getY()) < 28) {
             if (BombermanGame.bomberman.getSpeed() <= 8) {
                 buff();
-                System.out.println(BombermanGame.bomberman.getSpeed());
             }
         }
     }

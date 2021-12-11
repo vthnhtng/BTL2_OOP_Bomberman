@@ -13,7 +13,7 @@ public class Bomb extends StillEntity {
     boolean set;
 
     int frameExplosion = 0;
-    int intervalExplode = 4;
+    int intervalExplode = 1;
     int indexExplosionAnimation = 0;
 
     public Bomb() {
@@ -310,11 +310,24 @@ public class Bomb extends StillEntity {
                         if (BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] == 4) {
                             BombermanGame.level1[(getY()) / 32][(getX() + i * 32) / 32] = 0;
                             if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 1) {
-                                Item x2SpdBuff = new x2Spd((getX() + i * 32)/32, getY()/32, Sprite.powerup_speed.getFxImage());
+                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_speed.getFxImage());
+                                BombermanGame.itemsList.add(x2SpdBuff);
+                            } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 2) {
+                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_bombs.getFxImage());
+                                BombermanGame.itemsList.add(x2SpdBuff);
+                            } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 3) {
+                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_flames.getFxImage());
+                                BombermanGame.itemsList.add(x2SpdBuff);
+                            } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 4) {
+                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_flamepass.getFxImage());
+                                BombermanGame.itemsList.add(x2SpdBuff);
+                            } else if (BombermanGame.items[getY() / 32][(getX() + i * 32) / 32] == 5) {
+                                Item x2SpdBuff = new x2Spd((getX() + i * 32) / 32, getY() / 32, Sprite.powerup_wallpass.getFxImage());
                                 BombermanGame.itemsList.add(x2SpdBuff);
                             }
                             break;
                         }
+
                         if (Math.abs((getX() + i * 32) - BombermanGame.bomberman.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman.getY()) < 29) {
                             if (!BombermanGame.bomberman.isInvisible()) {
                                 BombermanGame.bomberman.setImg(Sprite.player_dead3.getFxImage());
@@ -355,7 +368,19 @@ public class Bomb extends StillEntity {
                             if (BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] == 4) {
                                 BombermanGame.level1[(getY()) / 32][(getX() - i * 32) / 32] = 0;
                                 if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 1) {
-                                    Item x2SpdBuff = new x2Spd((getX() - i * 32)/32, getY()/32, Sprite.powerup_speed.getFxImage());
+                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_speed.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 2) {
+                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_bombs.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 3) {
+                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_flames.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                }  else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 4) {
+                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_flamepass.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[getY() / 32][(getX() - i * 32) / 32] == 5) {
+                                    Item x2SpdBuff = new x2Spd((getX() - i * 32) / 32, getY() / 32, Sprite.powerup_wallpass.getFxImage());
                                     BombermanGame.itemsList.add(x2SpdBuff);
                                 }
                                 break;
@@ -400,7 +425,19 @@ public class Bomb extends StillEntity {
                             if (BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] == 4) {
                                 BombermanGame.level1[(getY() - i * 32) / 32][(getX()) / 32] = 0;
                                 if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 1) {
-                                    Item x2SpdBuff = new x2Spd(getX()/32, (getY() - i * 32)/32, Sprite.powerup_speed.getFxImage());
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_speed.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 2) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_bombs.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 3) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_flames.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 4) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_flamepass.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() - i * 32) / 32][getX() / 32] == 5) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() - i * 32) / 32, Sprite.powerup_wallpass.getFxImage());
                                     BombermanGame.itemsList.add(x2SpdBuff);
                                 }
                                 break;
@@ -445,7 +482,19 @@ public class Bomb extends StillEntity {
                             if (BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] == 4) {
                                 BombermanGame.level1[(getY() + i * 32) / 32][(getX()) / 32] = 0;
                                 if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 1) {
-                                    Item x2SpdBuff = new x2Spd(getX()/32, (getY() + i * 32)/32, Sprite.powerup_speed.getFxImage());
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_speed.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 2) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_bombs.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 3) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_flames.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 4) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_flamepass.getFxImage());
+                                    BombermanGame.itemsList.add(x2SpdBuff);
+                                } else if (BombermanGame.items[(getY() + i * 32) / 32][getX() / 32] == 5) {
+                                    Item x2SpdBuff = new x2Spd(getX() / 32, (getY() + i * 32) / 32, Sprite.powerup_wallpass.getFxImage());
                                     BombermanGame.itemsList.add(x2SpdBuff);
                                 }
                                 break;

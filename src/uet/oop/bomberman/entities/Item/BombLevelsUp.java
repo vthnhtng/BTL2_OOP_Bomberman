@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.Item;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.DynamicEntity;
 
 public class BombLevelsUp extends Item {
@@ -11,11 +12,16 @@ public class BombLevelsUp extends Item {
 
     @Override
     public void buff() {
-
+        BombermanGame.bombLevels++;
+        BombermanGame.itemsList.remove(this);
     }
 
     @Override
     public void update() {
-
+        if (Math.abs(getX() - BombermanGame.bomberman.getX()) < 28 && Math.abs(getY() - BombermanGame.bomberman.getY()) < 28) {
+            if (BombermanGame.bombLevels < 10) {
+                buff();
+            }
+        }
     }
 }
