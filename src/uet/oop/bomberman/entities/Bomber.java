@@ -172,14 +172,43 @@ public class Bomber extends DynamicEntity {
         }
     }
 
-    private int rebornFrame = 0;
-    private int intervalToReborn = 4;
     private boolean isReborn;
 
     @Override
     public void dead() {
-
+        frame_dead++;
+        if (frame_dead > interval_dead) {
+            index_animation_dead++;
+            if (index_animation_dead > 3) {
+                index_animation_dead = 0;
+            }
+        }
+        if (this.live > 0) {
+            switch (index_animation_dead) {
+                case 0:
+                    this.setDead(true);
+                    this.setImg(Sprite.player_dead1.getFxImage());
+                    break;
+                case 1:
+                    this.setDead(true);
+                    this.setImg(Sprite.player_dead2.getFxImage());
+                    break;
+                case 2:
+                    this.setDead(true);
+                    this.setImg(Sprite.player_dead3.getFxImage());
+                    break;
+                case 3:
+                    if (BombermanGame.bomberman1.isDead()) {
+                        BombermanGame.bomberman1.reborn();
+                    }
+                    if (BombermanGame.bomberman2.isDead()) {
+                        BombermanGame.bomberman2.reborn();
+                    }
+                    break;
+            }
+        }
     }
+
     public void reborn() {
         live--;
         if (live > 0) {

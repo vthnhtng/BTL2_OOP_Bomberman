@@ -41,20 +41,26 @@ public class BombermanGame extends Application {
     public static final int HEIGHT = 22;
     public static GraphicsContext gc;
     private Canvas canvas;
-    public static int levels = 3;
+    public static int levels = 0;
     public static List<Bomb> bombs = new ArrayList<>();
     public static List<DynamicEntity> movingEntities = new ArrayList<>(); // lưu các entities động
     public static List<StillEntity> stillObjects = new ArrayList<>(); // lưu các entities tĩnh khi khởi tạo map
     public static List<Item> itemsList = new ArrayList<>();
 
-    double x, y;
-    public static int countBomb = 0;
-    public static int bombLevels = 1; // max 5
-    public static int fireLevels = 1; // max 5
 
-    public static DynamicEntity bomberman = new Bomber(1, 5, Sprite.bomman_down.getFxImage());
-    public static DynamicEntity bomberman1 = new Bomber(1, 2, Sprite.bomman2_down.getFxImage());
+    public static DynamicEntity bomberman1 = new Bomber(1, 5, Sprite.bomman_down.getFxImage());
+    public static DynamicEntity bomberman2 = new Bomber(1, 3, Sprite.player_down.getFxImage());
     public static int[][] items = new int[34][20];
+    public static boolean Player2 = true;
+
+    public static int countBomb1 = 0;
+    public static int bombLevels1 = 1; // max 5
+    public static int fireLevels1 = 2; // max 5
+
+    public static int countBomb2 = 0;
+    public static int bombLevels2 = 1; // max 5
+    public static int fireLevels2 = 3; // max 5
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -64,8 +70,10 @@ public class BombermanGame extends Application {
         Menu.creatMenu(root);
         Scene scene = new Scene(root);
 
-        movingEntities.add(bomberman);
         movingEntities.add(bomberman1);
+        if (Player2 == true) {
+            movingEntities.add(bomberman2);
+        }
         Levels.Maps.add(Levels.level1);
         Levels.Maps.add(Levels.level2);
         Levels.Maps.add(Levels.level3);
@@ -77,16 +85,24 @@ public class BombermanGame extends Application {
                     if (!pause) {
                         switch (event.getCode()) {
                             case UP:
-                                bomberman.moveUP = true;
+                                if (Player2 == true) {
+                                    bomberman2.moveUP = true;
+                                }
                                 break;
                             case DOWN:
-                                bomberman.moveDOWN = true;
+                                if (Player2 == true) {
+                                    bomberman2.moveDOWN = true;
+                                }
                                 break;
                             case LEFT:
-                                bomberman.moveLEFT = true;
+                                if (Player2 == true) {
+                                    bomberman2.moveLEFT = true;
+                                }
                                 break;
                             case RIGHT:
-                                bomberman.moveRIGHT = true;
+                                if (Player2 == true) {
+                                    bomberman2.moveRIGHT = true;
+                                }
                                 break;
                             case W:
                                 bomberman1.moveUP = true;
@@ -100,18 +116,18 @@ public class BombermanGame extends Application {
                             case D:
                                 bomberman1.moveRIGHT = true;
                                 break;
-                            case TAB:
-                                if (!BombermanGame.bomberman.isInvisible()) {
-                                    BombermanGame.bomberman.setInvisible(true);
-                                } else {
-                                    BombermanGame.bomberman.setInvisible(false);
-                                }
-                                if (bombLevels < 10) {
-                                    bombLevels = 10;
-                                }
-                                if (fireLevels < 10) {
-                                    fireLevels = 10;
-                                }
+//                            case TAB:
+//                                if (!BombermanGame.bomberman.isInvisible()) {
+//                                    BombermanGame.bomberman.setInvisible(true);
+//                                } else {
+//                                    BombermanGame.bomberman.setInvisible(false);
+//                                }
+//                                if (bombLevels < 10) {
+//                                    bombLevels = 10;
+//                                }
+//                                if (fireLevels < 10) {
+//                                    fireLevels = 10;
+//                                }
                         }
 
                     }
@@ -125,16 +141,16 @@ public class BombermanGame extends Application {
                     if (!pause) {
                         switch (event.getCode()) {
                             case UP:
-                                bomberman.moveUP = false;
+                                bomberman2.moveUP = false;
                                 break;
                             case DOWN:
-                                bomberman.moveDOWN = false;
+                                bomberman2.moveDOWN = false;
                                 break;
                             case LEFT:
-                                bomberman.moveLEFT = false;
+                                bomberman2.moveLEFT = false;
                                 break;
                             case RIGHT:
-                                bomberman.moveRIGHT = false;
+                                bomberman2.moveRIGHT = false;
                                 break;
                             case W:
                                 bomberman1.moveUP = false;
@@ -149,9 +165,9 @@ public class BombermanGame extends Application {
                                 bomberman1.moveRIGHT = false;
                                 break;
                             case SPACE:
-                                if (countBomb < bombLevels) {
+                                if (countBomb1 < bombLevels1) {
                                     if (!bomberman1.isDead()) {
-                                        Bomb bomb = new Bomb();
+                                        Bomb bomb1 = new Bomb();
                                         int bombX = bomberman1.getX() / 32;
                                         int bombY = bomberman1.getY() / 32;
                                         if (bomberman1.getY() % 32 >= 16) {
@@ -166,38 +182,40 @@ public class BombermanGame extends Application {
                                         } else {
                                             bombX *= 32;
                                         }
-                                        bomb.setSet(true);
-                                        bomb.setX(bombX);
-                                        bomb.setY(bombY);
-                                        bomb.setImg(Sprite.bomb.getFxImage());
-                                        bombs.add(bomb);
-                                        countBomb++;
+                                        bomb1.setPlayerSet1(true);
+                                        bomb1.setX(bombX);
+                                        bomb1.setY(bombY);
+                                        bomb1.setImg(Sprite.bomb.getFxImage());
+                                        bombs.add(bomb1);
+                                        countBomb1++;
                                     }
                                 }
                                 break;
                             case ENTER:
-                                if (countBomb < bombLevels) {
-                                    if (!bomberman.isDead()) {
-                                        Bomb bomb = new Bomb();
-                                        int bombX = bomberman.getX() / 32;
-                                        int bombY = bomberman.getY() / 32;
-                                        if (bomberman.getY() % 32 >= 16) {
-                                            bombY += 1;
-                                            bombY *= 32;
-                                        } else {
-                                            bombY *= 32;
+                                if (Player2 == true) {
+                                    if (countBomb2 < bombLevels2) {
+                                        if (!bomberman2.isDead()) {
+                                            Bomb bomb2 = new Bomb();
+                                            int bombX = bomberman2.getX() / 32;
+                                            int bombY = bomberman2.getY() / 32;
+                                            if (bomberman2.getY() % 32 >= 16) {
+                                                bombY += 1;
+                                                bombY *= 32;
+                                            } else {
+                                                bombY *= 32;
+                                            }
+                                            if (bomberman2.getX() % 32 >= 16) {
+                                                bombX += 1;
+                                                bombX *= 32;
+                                            } else {
+                                                bombX *= 32;
+                                            }
+                                            bomb2.setPlayerSet2(true);
+                                            bomb2.setX(bombX);
+                                            bomb2.setY(bombY);
+                                            bombs.add(bomb2);
+                                            countBomb2++;
                                         }
-                                        if (bomberman.getX() % 32 >= 16) {
-                                            bombX += 1;
-                                            bombX *= 32;
-                                        } else {
-                                            bombX *= 32;
-                                        }
-                                        bomb.setSet(true);
-                                        bomb.setX(bombX);
-                                        bomb.setY(bombY);
-                                        bombs.add(bomb);
-                                        countBomb++;
                                     }
                                 }
                                 break;

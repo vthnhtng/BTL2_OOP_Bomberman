@@ -11,7 +11,7 @@ public class Portal extends Item{
 
     @Override
     public void update() {
-        if (Math.abs(getX() - BombermanGame.bomberman.getX()) < 28 && Math.abs(getY() - BombermanGame.bomberman.getY()) < 28) {
+        if (Math.abs(getX() - BombermanGame.bomberman1.getX()) < 28 && Math.abs(getY() - BombermanGame.bomberman1.getY()) < 28) {
             if (BombermanGame.movingEntities.size() - Levels.lvEnemy[BombermanGame.levels] == 1 ) {
                 buff();
             }

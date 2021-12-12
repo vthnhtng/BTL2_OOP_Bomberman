@@ -19,7 +19,7 @@ public abstract class DynamicEntity extends Entity {
     int indexAnimation = 0;// lấy sprite từ 1 -> 3;
 
     protected int frame_dead = 0;
-    protected int interval_dead = 10;
+    protected int interval_dead = 2;
     protected int index_animation_dead = 0;
     protected boolean isDead = false;
 

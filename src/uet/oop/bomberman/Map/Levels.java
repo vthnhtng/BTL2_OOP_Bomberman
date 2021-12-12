@@ -188,9 +188,9 @@ public class Levels {
     public static void createLv1(int[][] levels) {
         try {
             Random_Brick(levels);
-//            for (int i = 0; i < lvEnemy[1]; i ++) {
-//                Random_Enemy(levels, 1, i );
-//            }
+            for (int i = 0; i < lvEnemy[1]; i ++) {
+                Random_Enemy(levels, 1, i );
+            }
             for (int i = 0; i < columns; i++) {
                 for (int j = 0; j < rows; j++) {
                     StillEntity object;

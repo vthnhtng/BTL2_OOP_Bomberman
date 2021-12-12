@@ -29,6 +29,22 @@ public class Enemy extends DynamicEntity {
     @Override
     public void update() {
         if (!isDead) {
+            if (Math.abs(getX() - BombermanGame.bomberman1.getX()) < 31 && Math.abs(getY() - BombermanGame.bomberman1.getY()) < 31) {
+                if (!BombermanGame.bomberman1.invisible) {
+                    if (!this.isDead()) {
+                        BombermanGame.bomberman1.dead();
+                    }
+                }
+            }
+            if (BombermanGame.Player2 == true) {
+                if (Math.abs(getX() - BombermanGame.bomberman2.getX()) < 31 && Math.abs(getY() - BombermanGame.bomberman2.getY()) < 31) {
+                    if (!BombermanGame.bomberman2.invisible) {
+                        if (!this.isDead()) {
+                            BombermanGame.bomberman2.dead();
+                        }
+                    }
+                }
+            }
             if (moveDOWN) {
                 if (canMove_Down(getX(), getY(), Levels.Maps.get(BombermanGame.levels)) || can_Move_Down_2(getX(), getY())) {
                     moveDOWN();
@@ -127,13 +143,7 @@ public class Enemy extends DynamicEntity {
                     }
                 }
             }
-            if (Math.abs(getX() - BombermanGame.bomberman.getX()) < 31 && Math.abs(getY() - BombermanGame.bomberman.getY()) < 31) {
-                if (!BombermanGame.bomberman.invisible) {
-                    if (!this.isDead()) {
-                        BombermanGame.bomberman.dead();
-                    }
-                }
-            }
+
         } else {
             this.setImg(Sprite.balloom_dead.getFxImage());
             frame++;
