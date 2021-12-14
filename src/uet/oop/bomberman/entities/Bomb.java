@@ -3,18 +3,21 @@ package uet.oop.bomberman.entities;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.Map.Levels;
-import uet.oop.bomberman.entities.Item.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends StillEntity {
     public boolean exploded1;
     public boolean exploded2;
-    int countToExplode = 0;
-    int intervalToExplode = 4;
+    int countToExplode1 = 0;
+    int intervalToExplode1 = 3;
+    int countToExplode2 = 0;
+    int intervalToExplode2 = 3;
     private boolean PlayerSet1;
     private boolean PlayerSet2;
-    int frameExplosion = 0;
-    int intervalExplode = 1;
+    int frameExplosion1 = 0;
+    int intervalExplode1 = 2;
+    int frameExplosion2 = 0;
+    int intervalExplode2 = 2;
     int indexExplosionAnimation = 0;
 
     public Bomb() {
@@ -62,7 +65,7 @@ public class Bomb extends StillEntity {
             indexAnimation1++;
             if (indexAnimation1 > 2) {  // chay het hoat anh 8 lai tro ve hoat anh 1
                 indexAnimation1 = 0;
-                countToExplode++;
+                countToExplode1++;
             }
         }
         switch (indexAnimation1) {
@@ -77,16 +80,16 @@ public class Bomb extends StillEntity {
                 break;
         }
 
-        if (countToExplode > intervalToExplode) {
+        if (countToExplode1 > intervalToExplode1) {
             exploded1 = true;
-            countToExplode = 0;
+            countToExplode1 = 0;
             BombermanGame.countBomb1--;
         }
 
         if (exploded1) {
-            frameExplosion = frameExplosion + 1;
-            if (frameExplosion > intervalExplode) {
-                frameExplosion = 0;
+            frameExplosion1 = frameExplosion1 + 1;
+            if (frameExplosion1 > intervalExplode1) {
+                frameExplosion1 = 0;
                 indexExplosionAnimation++;
                 if (indexExplosionAnimation > 3) {
                     indexExplosionAnimation = 0;
@@ -109,7 +112,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX() + i * 32) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead1.getFxImage());
@@ -158,7 +161,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX() - i * 32) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead1.getFxImage());
@@ -199,7 +202,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX()) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY() - i * 32) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead1.getFxImage());
@@ -240,7 +243,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX()) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY() + i * 32) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead1.getFxImage());
@@ -286,7 +289,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX() + i * 32) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead2.getFxImage());
@@ -327,7 +330,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX() - i * 32) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead2.getFxImage());
@@ -368,7 +371,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX()) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY() - i * 32) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead2.getFxImage());
@@ -409,7 +412,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX()) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY() + i * 32) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead2.getFxImage());
@@ -470,7 +473,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX() + i * 32) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead3.getFxImage());
@@ -540,7 +543,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX() - i * 32) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY()) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead3.getFxImage());
@@ -609,7 +612,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX()) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY() - i * 32) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead3.getFxImage());
@@ -678,7 +681,7 @@ public class Bomb extends StillEntity {
                                 BombermanGame.bomberman1.setDead(true);
                             }
                         }
-                        if (BombermanGame.Player2 == true) {
+                        if (BombermanGame.PvPMode == true) {
                             if (Math.abs((getX()) - BombermanGame.bomberman2.getX()) < 29 && Math.abs((getY() + i * 32) - BombermanGame.bomberman2.getY()) < 29) {
                                 if (!BombermanGame.bomberman2.isInvisible()) {
                                     BombermanGame.bomberman2.setImg(Sprite.player_dead3.getFxImage());
@@ -717,7 +720,7 @@ public class Bomb extends StillEntity {
                     }
                     exploded1 = false;
                     BombermanGame.bomberman1.render(BombermanGame.gc);
-                    BombermanGame.bomberman2.render(BombermanGame.gc);
+                //    BombermanGame.bomberman2.render(BombermanGame.gc);
                     Levels.Maps.get(BombermanGame.levels)[getY() / 32][getX() / 32] = 0;
                     Levels.updateStillObject(Levels.Maps.get(BombermanGame.levels));
                     PlayerSet1 = false;
@@ -738,7 +741,7 @@ public class Bomb extends StillEntity {
             indexAnimation2++;
             if (indexAnimation2 > 2) {  // chay het hoat anh 8 lai tro ve hoat anh 1
                 indexAnimation2 = 0;
-                countToExplode++;
+                countToExplode2++;
             }
         }
         switch (indexAnimation2) {
@@ -753,16 +756,16 @@ public class Bomb extends StillEntity {
                 break;
         }
 
-        if (countToExplode > intervalToExplode) {
+        if (countToExplode2 > intervalToExplode2) {
             exploded2 = true;
-            countToExplode = 0;
+            countToExplode2 = 0;
             BombermanGame.countBomb2--;
         }
 
         if (exploded2) {
-            frameExplosion = frameExplosion + 1;
-            if (frameExplosion > intervalExplode) {
-                frameExplosion = 0;
+            frameExplosion2 = frameExplosion2 + 1;
+            if (frameExplosion2 > intervalExplode2) {
+                frameExplosion2 = 0;
                 indexExplosionAnimation++;
                 if (indexExplosionAnimation > 3) {
                     indexExplosionAnimation = 0;

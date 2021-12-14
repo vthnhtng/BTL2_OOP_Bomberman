@@ -2,39 +2,27 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.entities.Item.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.Map.Levels;
 
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.sql.Time;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 
 public class BombermanGame extends Application {
+    public static Group root = new Group();
     public static boolean pause = false;
     public static boolean gameStart = false;
     public static final int WIDTH = 34;
@@ -47,37 +35,49 @@ public class BombermanGame extends Application {
     public static List<StillEntity> stillObjects = new ArrayList<>(); // lưu các entities tĩnh khi khởi tạo map
     public static List<Item> itemsList = new ArrayList<>();
 
+    public static int enemyCount = 0;
+    //chon nvat
+    public static boolean player1 = false;
+    public static boolean player2 = true;
+    public static boolean player3 = false;
 
-    public static DynamicEntity bomberman1 = new Bomber(1, 5, Sprite.bomman_down.getFxImage());
-    public static DynamicEntity bomberman2 = new Bomber(1, 3, Sprite.player_down.getFxImage());
-    public static int[][] items = new int[34][20];
-    public static boolean Player2 = true;
+
+    public static boolean player11 = false;
+    public static boolean player22 = false;
+    public static boolean player33 = false;
+
+    public static boolean PvPMode = false;
+    public static boolean cheat = false;
+    public static DynamicEntity bomberman1 = new Bomber();
+    public static DynamicEntity bomberman2 = new Bomber();
+    public static int[][] items = new int[40][40];
+
 
     public static int countBomb1 = 0;
     public static int bombLevels1 = 1; // max 5
-    public static int fireLevels1 = 2; // max 5
+    public static int fireLevels1 = 1; // max 5
 
     public static int countBomb2 = 0;
     public static int bombLevels2 = 1; // max 5
-    public static int fireLevels2 = 3; // max 5
+    public static int fireLevels2 = 1; // max 5
 
-
+    public static Clip clip;
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException, RuntimeException, LineUnavailableException, UnsupportedAudioFileException {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        Group root = new Group();
         Menu.creatMenu(root);
         Scene scene = new Scene(root);
-
-        movingEntities.add(bomberman1);
-        if (Player2 == true) {
-            movingEntities.add(bomberman2);
-        }
+        File file = new File("res\\Music.wav");
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
         Levels.Maps.add(Levels.level1);
         Levels.Maps.add(Levels.level2);
         Levels.Maps.add(Levels.level3);
-        Levels.Maps.add(Levels.PVPMode);
+        Levels.Maps.add(Levels.PvPMode);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -85,22 +85,22 @@ public class BombermanGame extends Application {
                     if (!pause) {
                         switch (event.getCode()) {
                             case UP:
-                                if (Player2 == true) {
+                                if (PvPMode == true) {
                                     bomberman2.moveUP = true;
                                 }
                                 break;
                             case DOWN:
-                                if (Player2 == true) {
+                                if (PvPMode == true) {
                                     bomberman2.moveDOWN = true;
                                 }
                                 break;
                             case LEFT:
-                                if (Player2 == true) {
+                                if (PvPMode == true) {
                                     bomberman2.moveLEFT = true;
                                 }
                                 break;
                             case RIGHT:
-                                if (Player2 == true) {
+                                if (PvPMode == true) {
                                     bomberman2.moveRIGHT = true;
                                 }
                                 break;
@@ -116,18 +116,18 @@ public class BombermanGame extends Application {
                             case D:
                                 bomberman1.moveRIGHT = true;
                                 break;
-//                            case TAB:
-//                                if (!BombermanGame.bomberman.isInvisible()) {
-//                                    BombermanGame.bomberman.setInvisible(true);
-//                                } else {
-//                                    BombermanGame.bomberman.setInvisible(false);
-//                                }
-//                                if (bombLevels < 10) {
-//                                    bombLevels = 10;
-//                                }
-//                                if (fireLevels < 10) {
-//                                    fireLevels = 10;
-//                                }
+                            case TAB:
+                                if (!BombermanGame.bomberman1.isInvisible()) {
+                                    BombermanGame.bomberman1.setInvisible(true);
+                                } else {
+                                    BombermanGame.bomberman1.setInvisible(false);
+                                }
+                                if (bombLevels1 < 10) {
+                                    bombLevels1 = 10;
+                                }
+                                if (fireLevels1 < 10) {
+                                    fireLevels1 = 10;
+                                }
                         }
 
                     }
@@ -192,7 +192,7 @@ public class BombermanGame extends Application {
                                 }
                                 break;
                             case ENTER:
-                                if (Player2 == true) {
+                                if (PvPMode == true) {
                                     if (countBomb2 < bombLevels2) {
                                         if (!bomberman2.isDead()) {
                                             Bomb bomb2 = new Bomb();
@@ -248,9 +248,8 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-        Levels.createLv1(Levels.Maps.get(levels));
-
     }
+
 
 
     public void update() {

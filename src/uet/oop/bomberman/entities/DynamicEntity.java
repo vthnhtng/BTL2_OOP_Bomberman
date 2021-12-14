@@ -11,8 +11,36 @@ import java.awt.*;
 
 public abstract class DynamicEntity extends Entity {
     public boolean moving;
-
     //public final double default speed = 0.05;
+
+    protected boolean isPlayer2 = false;
+    protected boolean isPlayer3 = false;
+
+    protected boolean isRival = false;
+
+    public boolean isPlayer2() {
+        return isPlayer2;
+    }
+
+    public void setPlayer2(boolean player2) {
+        isPlayer2 = player2;
+    }
+
+    public boolean isPlayer3() {
+        return isPlayer3;
+    }
+
+    public void setPlayer3(boolean player3) {
+        isPlayer3 = player3;
+    }
+
+    public boolean isRival() {
+        return isRival;
+    }
+
+    public void setRival(boolean rival) {
+        isRival = rival;
+    }
 
     int frame = 0; // biến check tg khi giữ phím
     double interval = 6; // giữ phím trong khoảng 5 mil s thì chuyển animation
@@ -68,6 +96,40 @@ public abstract class DynamicEntity extends Entity {
     }
 
     public abstract void dead();
+
+    public DynamicEntity(){};
+
+    public boolean isMoveRIGHT() {
+        return moveRIGHT;
+    }
+
+    public void setMoveRIGHT(boolean moveRIGHT) {
+        this.moveRIGHT = moveRIGHT;
+    }
+
+    public boolean isMoveLEFT() {
+        return moveLEFT;
+    }
+
+    public void setMoveLEFT(boolean moveLEFT) {
+        this.moveLEFT = moveLEFT;
+    }
+
+    public boolean isMoveUP() {
+        return moveUP;
+    }
+
+    public void setMoveUP(boolean moveUP) {
+        this.moveUP = moveUP;
+    }
+
+    public boolean isMoveDOWN() {
+        return moveDOWN;
+    }
+
+    public void setMoveDOWN(boolean moveDOWN) {
+        this.moveDOWN = moveDOWN;
+    }
 
     //di chuyển qua trái
     public boolean canMove_Left(int x, int y, int[][] level1) {
@@ -241,5 +303,19 @@ public abstract class DynamicEntity extends Entity {
     }
 
 
+    public void cheating() {
+        System.out.println("cheating mode on!");
+        this.speed = 8;
+        this.setInvisible(true);
+        BombermanGame.bombLevels1 = 10;
+        BombermanGame.fireLevels1 = 10;
+    }
+    public void cheatingOff() {
+        System.out.println("cheating mode off!");
+        this.speed = 2;
+        this.setInvisible(false);
+        BombermanGame.bombLevels1 = 1;
+        BombermanGame.fireLevels1 = 1;
+    }
     // neu dc buff thi toa doa += defaultspeed*2 * Sprite.SCALED_SIZE;
 }

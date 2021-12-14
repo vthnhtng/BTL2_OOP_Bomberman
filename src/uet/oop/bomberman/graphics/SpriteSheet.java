@@ -17,6 +17,8 @@ public class SpriteSheet {
 	public int[] _pixels;
 	public BufferedImage image;
 
+	public static SpriteSheet Grass2 = new SpriteSheet("/textures/grass2.png", 16);
+	public static SpriteSheet Wall2 = new SpriteSheet("/textures/Wall2.png", 16);
 	public static SpriteSheet tiles = new SpriteSheet("/textures/classic.png", 256);
 	public static SpriteSheet tiles2 = new SpriteSheet("/textures/Up.png", 128);
 	public static SpriteSheet tiles3 = new SpriteSheet("/textures/Down.png", 128);
@@ -34,11 +36,11 @@ public class SpriteSheet {
 	public static SpriteSheet Bgr1 = new SpriteSheet("/textures/1.png", 16);
 	public static SpriteSheet Bgr2 = new SpriteSheet("/textures/2.png", 16);
 	public static SpriteSheet Bgr3 = new SpriteSheet("/textures/3.png", 16);
-	public static SpriteSheet Bgr4 = new SpriteSheet("/textures/4.png", 16);
-	public static SpriteSheet Bgr5 = new SpriteSheet("/textures/5.png", 16);
+	public static SpriteSheet Bgr4 = new SpriteSheet("/textures/5.png", 16);
+	public static SpriteSheet Bgr5 = new SpriteSheet("/textures/4.png", 16);
 	public static SpriteSheet Bgr6 = new SpriteSheet("/textures/6.png", 16);
 	public static SpriteSheet Bgr7 = new SpriteSheet("/textures/7.png", 16);
-
+	public static SpriteSheet Bomb = new SpriteSheet("/textures/bomb2.png", 64);
 	public SpriteSheet(String path, int size) {
 		_path = path;
 		SIZE = size;

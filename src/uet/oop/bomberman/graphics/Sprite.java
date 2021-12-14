@@ -25,9 +25,9 @@ public class Sprite {
 	private SpriteSheet _sheet;
 
 
-	public static Sprite Wall_Stone = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Bgr1, 16, 16);
+	public static Sprite Wall_Stone = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Wall2, 16, 16);
 	public static Sprite Wall_Wood = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Bgr6, 16, 16);
-	public static Sprite Grass_default = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Bgr, 16, 16);
+	public static Sprite Grass_default = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Grass2, 16, 16);
 	public static Sprite Wood_blue = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Bgr7, 16, 16);
 	public static Sprite Brick_1 = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Bgr4, 16, 16);
 	public static Sprite Brick_2 = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.Bgr5, 16, 16);
@@ -262,10 +262,13 @@ public class Sprite {
 	| Bomb Sprites
 	|--------------------------------------------------------------------------
 	 */
-	public static Sprite bomb = new Sprite(DEFAULT_SIZE, 0, 3, SpriteSheet.tiles, 15, 15);
-	public static Sprite bomb_1 = new Sprite(DEFAULT_SIZE, 1, 3, SpriteSheet.tiles, 13, 15);
-	public static Sprite bomb_2 = new Sprite(DEFAULT_SIZE, 2, 3, SpriteSheet.tiles, 12, 14);
-	
+//	public static Sprite bomb = new Sprite(DEFAULT_SIZE, 0, 3, SpriteSheet.tiles, 15, 15);
+//	public static Sprite bomb_1 = new Sprite(DEFAULT_SIZE, 1, 3, SpriteSheet.tiles, 13, 15);
+//	public static Sprite bomb_2 = new Sprite(DEFAULT_SIZE, 2, 3, SpriteSheet.tiles, 12, 14);
+	public static Sprite bomb = new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.Bomb, 16, 16);
+	public static Sprite bomb_1 = new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.Bomb, 16, 16);
+	public static Sprite bomb_2 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.Bomb, 16, 16);
+
 	/*
 	|--------------------------------------------------------------------------
 	| FlameSegment Sprites

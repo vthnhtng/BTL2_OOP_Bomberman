@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Entity
+abstract class DynamicEntity extends Entity
+abstract class StillEntity extends Entity
+
+class Bomber extends DynamicEntity
+
+abstract class Enemy extends DynamicEntity
+class BOSS extends Enemy
+class Balloom extends Enemy
+class Oneal extends Enemy
+
+class Brick extends StillEntity
+class Wall extends StillEntity
+class Grass extends StillEntity
+
+abstract class Item extends StillEntity
+class Addlive extends Item
+class x2Spd extends Item
+class SpdDecrease extends Item
+class BombsLevelsUp extends Item
+class FireLevelsUp extends Item
+class Portal extends Item
+
+class Bomb extends StillEntity
+
+
+
+@enduml
